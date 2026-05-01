@@ -7,7 +7,9 @@ import CreateComplaintForm from "../components/CreateComplaintForm";
 import Navbar from "../components/Navbar";
 
 function Dashboard() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const storedUser = localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
+
   const [complaints, setComplaints] = useState([]);
 
   useEffect(() => {
@@ -17,9 +19,17 @@ function Dashboard() {
   const fetchComplaints = async () => {
     try {
       const response = await getComplaints();
-      setComplaints(response.data.complaints);
+
+      const data =
+        response.data.complaints ||
+        response.data.data ||
+        response.data ||
+        [];
+
+      setComplaints(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to fetch complaints:", error);
+      setComplaints([]);
     }
   };
 
@@ -50,7 +60,7 @@ function Dashboard() {
               {user?.role === "admin" ? "All Complaints" : "My Complaints"}
             </h3>
 
-            {complaints.length === 0 ? (
+            {Array.isArray(complaints) && complaints.length === 0 ? (
               <p className="text-gray-500">No complaints found</p>
             ) : (
               complaints.map((c) => (
@@ -72,7 +82,7 @@ function Dashboard() {
                           : "bg-red-100 text-red-700"
                       }`}
                     >
-                      {c.status}
+                      {c.status || "Open"}
                     </span>
                   </div>
 
@@ -95,7 +105,7 @@ function Dashboard() {
                   {user?.role === "admin" && (
                     <select
                       className="mt-4 w-full rounded border p-2"
-                      value={c.status}
+                      value={c.status || "Open"}
                       onChange={(e) =>
                         handleStatusChange(c.id, e.target.value)
                       }
