@@ -10,29 +10,21 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await login({ email, password });
+  try {
+    const response = await login({ email, password });
 
-      const token = response.data.token || response.data?.data?.token;
-const user = response.data.user || response.data?.data?.user;
+    console.log("LOGIN RESPONSE:", response.data); // 👈 ADD THIS
 
-if (!token) {
-  alert("Login success, but token missing from backend response");
-  console.log(response.data);
-  return;
-}
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("user", JSON.stringify(response.data.user));
 
-localStorage.setItem("token", token);
-localStorage.setItem("user", JSON.stringify(user));
-
-      alert(response.data.message);
-      navigate("/dashboard");
-    } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
-    }
-  };
+    navigate("/dashboard");
+  } catch (error) {
+    alert(error.response?.data?.message || "Login failed");
+  }
+};
 
  return (
   <>
