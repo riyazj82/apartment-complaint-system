@@ -122,6 +122,31 @@ Create Complaint	✅	❌
 View Own Complaints	✅	❌
 View All Complaints	❌	✅
 
+## 🌐 Live Demo
+
+👉 **Application deployed on AWS EC2**
+
+http://13.61.249.233
+
+---
+
+## 🚀 Deployment Details
+
+- Deployed on **AWS EC2 (Ubuntu)**
+- **Frontend (React)** built and served using **Nginx**
+- **Backend (Node.js + Express)** running with **PM2**
+- **PostgreSQL** configured on the EC2 instance
+- Nginx used as a **reverse proxy**:
+  - `/` → React frontend
+  - `/api` → Backend API (port 3000)
+
+---
+
+## 🧠 Notes
+
+- Application is accessible via public IP
+- HTTPS can be enabled using a domain + SSL (Certbot)
+
 UI Highlights
 Modern Tailwind-based design
 Responsive layout
@@ -134,7 +159,6 @@ Add filters (status/category)
 Add search functionality
 Add notifications/toasts
 File/image upload for complaints
-Deployment (AWS / Vercel / Render)
 
 
 👨‍💻 Author
