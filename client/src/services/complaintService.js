@@ -1,13 +1,8 @@
 import API from "./api";
 
-export const getComplaints = () => {
-  return API.get("/api/complaints");
-};
+export const getComplaints = () => API.get("/complaints");
 
-export const createComplaint = (data) => {
-  return API.post("/api/complaints", data);
-};
+export const createComplaint = (data) => API.post("/complaints", data);
 
-export const updateComplaintStatus = (id, status) => {
-  return API.put(`/api/complaints/${id}/status`, { status });
-};
+export const updateComplaintStatus = (id, status) =>
+  API.put(`/complaints/${id}/status`, { status });

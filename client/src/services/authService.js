@@ -1,9 +1,9 @@
 import API from "./api";
 
 export const login = (data) => {
-  return API.post("/api/auth/login", data);
+  return API.post("/auth/login", data);
 };
 
 export const register = (data) => {
-  return API.post("/api/auth/register", data);
+  return API.post("/auth/register", data);
 };
